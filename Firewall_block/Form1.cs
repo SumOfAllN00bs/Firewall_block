@@ -56,16 +56,22 @@ namespace Firewall_block
                 MessageBox.Show(file);
                 Process process = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo();
-                //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.WorkingDirectory = @"C:\Windows\System32";
                 startInfo.FileName = "cmd.exe";
                 startInfo.Verb = "runas";
                 startInfo.Arguments = "/user:Administrator \"cmd /K \"netsh advfirewall firewall add rule name=\"" + Path.GetFileNameWithoutExtension(file) + "_block\" dir=in protocol=tcp program=\"" + file + "\" action=block\"" + "\"";
                 process.StartInfo = startInfo;
                 process.Start();
-                //string strCmdText;
-                //strCmdText = "/C netsh advfirewall firewall add rule name=\"%~n1_block\" dir=in protocol=tcp program=%1 action=block";
-                //System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+                Process process2 = new Process();
+                ProcessStartInfo startInfo2 = new ProcessStartInfo();
+                startInfo2.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo2.WorkingDirectory = @"C:\Windows\System32";
+                startInfo2.FileName = "cmd.exe";
+                startInfo2.Verb = "runas";
+                startInfo2.Arguments = "/user:Administrator \"cmd /K \"netsh advfirewall firewall add rule name=\"" + Path.GetFileNameWithoutExtension(file) + "_block\" dir=out protocol=tcp program=\"" + file + "\" action=block\"" + "\"";
+                process2.StartInfo = startInfo2;
+                process2.Start();
             }
         }
 
